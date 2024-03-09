@@ -2,20 +2,21 @@ version: '3'
 
 services:
   haproxy1:
-    image: haproxy:latest
+    image: haproxytech/haproxy-ubuntu:latest
     ports:
       - "8080:80"
     volumes:
-      - ./config/haproxy1.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./config/haproxy1.cfg:/usr/local/etc/haproxy/haproxy.cfg:rw
     networks:
       - haproxy_network
 
   haproxy2:
-    image: haproxy:latest
+    image: haproxytech/haproxy-ubuntu:latest
     ports:
       - "8081:80"
+      - "15555:5555"
     volumes:
-      - ./config/haproxy2.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./config/haproxy2.cfg:/usr/local/etc/haproxy/haproxy.cfg:rw
     networks:
       - haproxy_network
 
@@ -23,6 +24,7 @@ services:
     image: nginx:latest
     ports:
       - "9080:80"
+      - "25555:5555"
     #volumes:
     #  - ./config/haproxy1.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     networks:
