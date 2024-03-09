@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  haproxy1:
+    image: haproxy:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./config/haproxy1.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      - haproxy_network
+
+  haproxy2:
+    image: haproxy:latest
+    ports:
+      - "8081:80"
+    volumes:
+      - ./config/haproxy2.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      - haproxy_network
+
+  nginx1:
+    image: nginx:latest
+    ports:
+      - "9080:80"
+    #volumes:
+    #  - ./config/haproxy1.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      - haproxy_network
+
+  nginx2:
+    image: nginx:latest
+    ports:
+      - "9081:80"
+    #volumes:
+    #  - ./config/haproxy2.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      - haproxy_network      
+
+networks:
+  haproxy_network:
+    driver: bridge
