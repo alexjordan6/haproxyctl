@@ -12,4 +12,5 @@ package dataplane
 
 // HAProxy backends array
 type Backends struct {
+	Data []Backend
 }
